@@ -1,0 +1,17 @@
+version: '3'
+services:
+  mongo:
+    image: mongo
+    ports:
+      - '27017:27017'
+
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    env_file: .env-dev
+    depends_on:
+      - mongo
+ 
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
